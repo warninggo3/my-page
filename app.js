@@ -74,12 +74,12 @@ function initPlayerViewer() {
       const center = box.getCenter(new THREE.Vector3());
       const size   = box.getSize(new THREE.Vector3());
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scale  = 2.0 / maxDim;
+      const scale  = 1.85 / maxDim;
 
       model.scale.setScalar(scale);
       model.position.set(
         -center.x * scale,
-        -center.y * scale,
+        -center.y * scale + 0.2,
         -center.z * scale
       );
 
