@@ -1,0 +1,395 @@
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red:        #E31C39;
+  --red-light:  #FEE2E5;
+  --red-tint:   #FFF5F6;
+  --gray:       #F3F4F6;
+  --border:     #E5E7EB;
+  --text:       #111827;
+  --muted:      #6B7280;
+  --white:      #FFFFFF;
+  --radius:     14px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5rem 1.5rem 4rem;
+  overflow: hidden;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+/* 뒤 배경 야구공 */
+.hero__bg-ball {
+  position: absolute;
+  font-size: 55vw;
+  opacity: .04;
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hero__inner { position: relative; z-index: 1; }
+
+.hero__sub {
+  font-size: .9rem;
+  color: var(--muted);
+  margin-bottom: .4rem;
+  letter-spacing: .05em;
+}
+
+.hero__name {
+  font-size: clamp(3rem, 14vw, 5.5rem);
+  font-weight: 900;
+  letter-spacing: -.03em;
+  line-height: 1;
+  color: var(--text);
+  margin-bottom: .8rem;
+}
+.hero__name span { color: var(--red); }
+
+.hero__tagline {
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  color: var(--muted);
+  margin-bottom: 1.75rem;
+  line-height: 1.6;
+}
+.hero__tagline em {
+  color: var(--red);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  justify-content: center;
+}
+
+.tag {
+  padding: .35rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 99px;
+  font-size: .8rem;
+  color: var(--muted);
+  background: var(--white);
+  font-weight: 500;
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 2rem;
+  font-size: 1.3rem;
+  color: var(--muted);
+  text-decoration: none;
+  animation: bounce .7s ease-in-out infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to   { transform: translateY(7px); }
+}
+
+/* ── Layout ── */
+.container { max-width: 640px; margin: 0 auto; padding: 0 1.25rem; }
+
+.section         { padding: 4rem 0; background: var(--white); }
+.section--gray   { background: var(--gray); }
+.section--red-tint { background: var(--red-tint); }
+
+.section__title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 1.75rem;
+  display: inline-block;
+}
+.section__title::after {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 3px;
+  background: var(--red);
+  border-radius: 99px;
+  margin-top: .35rem;
+}
+
+/* ── About grid ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .875rem;
+}
+.about-grid .about-card:last-child { grid-column: 1 / -1; }
+
+.about-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+.about-card__icon { font-size: 1.5rem; }
+.about-card__label {
+  font-size: .72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-top: .1rem;
+}
+.about-card__value {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* ── 나에게 야구란? ── */
+.taste-list { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+
+.taste-item {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.taste-label {
+  flex-shrink: 0;
+  min-width: 3.5rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--red);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.2;
+}
+.taste-label small {
+  font-size: .62rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: .15rem;
+}
+.taste-item p { font-size: .9rem; color: var(--muted); padding-top: .2rem; }
+
+/* ── 최애선수 ── */
+.player-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.player-viewer {
+  width: 100%;
+  height: 300px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1.5px solid var(--red-light);
+  background: var(--white);
+  position: relative;
+}
+.player-viewer canvas { display: block; }
+.player-viewer__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .9rem;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.player-info { display: flex; flex-direction: column; gap: .5rem; }
+
+.player-number {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--red);
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+
+.player-name {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -.02em;
+}
+
+.player-team {
+  font-size: .85rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.player-quote {
+  margin-top: .5rem;
+  padding: 1rem 1.25rem;
+  background: var(--white);
+  border-left: 4px solid var(--red);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: .9rem;
+  color: var(--text);
+  line-height: 1.65;
+  font-style: normal;
+}
+
+/* ── Stats ── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .75rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.stat {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem .5rem;
+}
+.stat__num {
+  display: block;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--red);
+  line-height: 1;
+}
+.stat__label {
+  display: block;
+  font-size: .75rem;
+  color: var(--muted);
+  margin-top: .3rem;
+}
+
+/* ── Map ── */
+#map {
+  height: 260px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+/* ── Game list ── */
+.game-list { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+
+.game-item {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-left: 4px solid var(--red);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  display: flex;
+  gap: .875rem;
+  align-items: flex-start;
+}
+
+.game-item__dates {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  flex-shrink: 0;
+}
+.game-item__dates span {
+  background: var(--red-light);
+  color: var(--red);
+  font-size: .7rem;
+  font-weight: 700;
+  padding: .15rem .45rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.game-item__info { display: flex; flex-direction: column; gap: .2rem; }
+.game-item__info strong { font-size: .95rem; font-weight: 700; color: var(--text); }
+.game-item__info em    { font-size: .8rem; color: var(--muted); font-style: normal; }
+
+/* ── SNS ── */
+.sns-wrap { display: flex; justify-content: center; }
+
+.sns-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .85rem 2rem;
+  border-radius: 99px;
+  border: 2px solid var(--red);
+  color: var(--red);
+  background: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: background .2s, color .2s;
+}
+.sns-btn:hover, .sns-btn:active {
+  background: var(--red);
+  color: #fff;
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: .8rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  background: var(--white);
+}
+
+/* ── Tablet (480px+) ── */
+@media (min-width: 480px) {
+  .about-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .about-grid .about-card:last-child { grid-column: auto; }
+
+  .player-viewer { height: 380px; }
+  #map { height: 340px; }
+}
+
+/* ── Desktop (768px+) ── */
+@media (min-width: 768px) {
+  .player-wrap {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .player-viewer {
+    width: 320px;
+    flex-shrink: 0;
+    height: 400px;
+  }
+  #map { height: 400px; }
+  .taste-item p { font-size: 1rem; }
+}

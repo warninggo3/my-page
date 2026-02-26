@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>허수빈 — 야구를 사랑하는 사람</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <!-- Three.js (non-module build - 로컬 환경 호환) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+  <!-- ── HERO ── -->
+  <header class="hero">
+    <span class="hero__bg-ball" aria-hidden="true">⚾</span>
+    <div class="hero__inner">
+      <p class="hero__sub">안녕하세요, 저는</p>
+      <h1 class="hero__name">허수빈</h1>
+      <p class="hero__tagline">나와 야구.<br>나는 야구를 <em>얼마나</em> 좋아하는가</p>
+      <div class="hero__tags">
+        <span class="tag">INTJ</span>
+        <span class="tag">만 19세</span>
+        <span class="tag">야구 광팬 ⚾</span>
+      </div>
+    </div>
+    <a class="hero__scroll" href="#about" aria-label="아래로 스크롤">↓</a>
+  </header>
+
+  <main>
+
+    <!-- ── ABOUT ── -->
+    <section class="section section--gray" id="about">
+      <div class="container">
+        <h2 class="section__title">About</h2>
+        <div class="about-grid">
+          <div class="about-card">
+            <span class="about-card__icon">🧠</span>
+            <span class="about-card__label">MBTI</span>
+            <span class="about-card__value">INTJ</span>
+          </div>
+          <div class="about-card">
+            <span class="about-card__icon">🎂</span>
+            <span class="about-card__label">나이</span>
+            <span class="about-card__value">(아직) 만 19세</span>
+          </div>
+          <div class="about-card">
+            <span class="about-card__icon">⚾</span>
+            <span class="about-card__label">취미</span>
+            <span class="about-card__value">야구 직관<br>응원가 부르기<br>일 벌이기</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 나에게 야구란? ── -->
+    <section class="section" id="baseball">
+      <div class="container">
+        <h2 class="section__title">나에게 야구란?</h2>
+        <ul class="taste-list">
+          <li class="taste-item">
+            <span class="taste-label">진미<small>眞味</small></span>
+            <p>아빠와 함께할 수 있는 몇 없는 진미</p>
+          </li>
+          <li class="taste-item">
+            <span class="taste-label">감미<small>甘味</small></span>
+            <p>계속해서 나를 살찌게 하는 알딸딸한 감미</p>
+          </li>
+          <li class="taste-item">
+            <span class="taste-label">신미<small>辛味</small></span>
+            <p>저혈압인 나를 고혈압으로 만드는 레전드 신미</p>
+          </li>
+          <li class="taste-item">
+            <span class="taste-label">고미<small>苦味</small></span>
+            <p>처음 보는 사람들과 편하게 친해질 수 있는 씁쓸한 고미</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── 최.애.선.수 ── -->
+    <section class="section section--red-tint" id="player">
+      <div class="container">
+        <h2 class="section__title">최.애.선.수</h2>
+        <div class="player-wrap">
+          <!-- 3D 뷰어 -->
+          <div class="player-viewer" id="player-viewer">
+            <div class="player-viewer__loading">⚾ 로딩 중...</div>
+          </div>
+          <!-- 선수 정보 -->
+          <div class="player-info">
+            <div class="player-number">#0</div>
+            <h3 class="player-name">황성빈</h3>
+            <p class="player-team">롯데 자이언츠 · 외야수</p>
+            <blockquote class="player-quote">
+              이를 악물고 뛰어서 평범한 안타를 2루타로, 2루타를 3루타로 만드는 열정!
+              황성빈의 야구를 보면 나도 열심히 살아야 할 것만 같아진다.
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2025 직관 일지 ── -->
+    <section class="section section--gray" id="diary">
+      <div class="container">
+        <h2 class="section__title">2025 직관 일지</h2>
+
+        <div class="stats-row">
+          <div class="stat">
+            <span class="stat__num">13</span>
+            <span class="stat__label">총 경기</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">3</span>
+            <span class="stat__label">방문 구장</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">4</span>
+            <span class="stat__label">상대 팀</span>
+          </div>
+        </div>
+
+        <div id="map"></div>
+
+        <ul class="game-list">
+          <li class="game-item">
+            <div class="game-item__dates">
+              <span>04.18</span><span>04.19</span>
+            </div>
+            <div class="game-item__info">
+              <strong>대구</strong> 삼성 라이온즈 파크
+              <em>롯데 vs 삼성</em>
+            </div>
+          </li>
+          <li class="game-item">
+            <div class="game-item__dates">
+              <span>05.16</span><span>05.17</span><span>05.18</span><span>05.22</span>
+            </div>
+            <div class="game-item__info">
+              <strong>부산</strong> 사직야구장
+              <em>롯데 vs 삼성 / LG</em>
+            </div>
+          </li>
+          <li class="game-item">
+            <div class="game-item__dates">
+              <span>05.27</span><span>05.28</span><span>05.29</span><span>06.19</span>
+            </div>
+            <div class="game-item__info">
+              <strong>대구</strong> 삼성 라이온즈 파크
+              <em>롯데 vs 삼성 / 삼성 vs 두산</em>
+            </div>
+          </li>
+          <li class="game-item">
+            <div class="game-item__dates">
+              <span>08.20</span><span>08.21</span><span>09.28</span>
+            </div>
+            <div class="game-item__info">
+              <strong>서울</strong> 잠실야구장
+              <em>롯데 vs LG / 롯데 vs 두산</em>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── SNS ── -->
+    <section class="section" id="sns">
+      <div class="container">
+        <h2 class="section__title">SNS</h2>
+        <div class="sns-wrap">
+          <a class="sns-btn" href="https://instagram.com/kkuul.biin" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+            @kkuul.biin
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Made with ⚾ &amp; GitHub Copilot</p>
+  </footer>
+
+</body>
+</html>
