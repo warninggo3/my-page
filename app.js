@@ -79,7 +79,7 @@ function initPlayerViewer() {
       model.scale.setScalar(scale);
       model.position.set(
         -center.x * scale,
-        -center.y * scale + 0.2,
+        -center.y * scale + 0.5,
         -center.z * scale
       );
 
