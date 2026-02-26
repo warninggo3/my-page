@@ -6,11 +6,13 @@ function initPlayerViewer() {
   const w = container.clientWidth;
   const h = container.clientHeight;
 
-  // 렌더러
+  // 렌더러 — 물리 기반 톤매핑
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setSize(w, h);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.0;
   renderer.physicallyCorrectLights = true;
   container.appendChild(renderer.domElement);
 
@@ -21,14 +23,28 @@ function initPlayerViewer() {
   const camera = new THREE.PerspectiveCamera(40, w / h, 0.01, 1000);
   camera.position.set(0, 1.2, 3.5);
 
-  // 조명
-  scene.add(new THREE.AmbientLight(0xffffff, 1.2));
-  const key = new THREE.DirectionalLight(0xffffff, 1.5);
-  key.position.set(3, 5, 3);
-  scene.add(key);
-  const fill = new THREE.DirectionalLight(0xffffff, 0.6);
-  fill.position.set(-3, 2, -2);
-  scene.add(fill);
+  // IBL: blaubeuren_night_4k.exr 환경 맵으로 조명
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  pmrem.compileEquirectangularShader();
+
+  new THREE.EXRLoader().load(
+    'blaubeuren_night_4k.exr',
+    (exrTex) => {
+      const envMap = pmrem.fromEquirectangular(exrTex).texture;
+      scene.environment = envMap;   // IBL 조명 적용
+      // scene.background 는 흰색 유지 (배경에 HDR 표시 안 함)
+      exrTex.dispose();
+      pmrem.dispose();
+    },
+    undefined,
+    () => {
+      // EXR 로드 실패 시 기본 조명 폴백
+      const key = new THREE.DirectionalLight(0xffffff, 1.5);
+      key.position.set(3, 5, 3);
+      scene.add(key);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+    }
+  );
 
   // OrbitControls
   const controls = new THREE.OrbitControls(camera, renderer.domElement);
